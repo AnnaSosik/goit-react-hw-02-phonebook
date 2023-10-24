@@ -23,8 +23,10 @@ class App extends Component {
 
     if (availableInContacts) {
       alert(`${contact.name} is already in contacts`);
+
       return;
     }
+
     this.setState(prevState => ({
       contacts: [{ id: nanoid(), ...contact }, ...prevState.contacts],
     }));
@@ -62,6 +64,7 @@ class App extends Component {
         <ContactForm onSubmit={this.addContact} />
 
         <SubTitle>Contacts</SubTitle>
+
         {this.state.contacts.length > 0 ? (
           <Filter value={filter} onChangeFilter={this.changeFilter} />
         ) : (
