@@ -16,6 +16,24 @@ class App extends Component {
     filter: '',
   };
 
+  //Saving contacts to localStorage
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts'); // Get data from localStorage.
+    const parsedContacts = JSON.parse(contacts); // Convert the data from a JSON string to a JavaScript object.
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts }); // Set the received contacts to the "contacts" object.
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      // Compare the current contacts with the previous contact object.
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      // If contacts have changed, save them to localStorage.
+    }
+  }
+
   addContact = contact => {
     const availableInContacts = this.state.contacts.some(
       ({ name }) => name.toLowerCase() === contact.name.toLowerCase()
